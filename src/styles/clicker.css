@@ -1,0 +1,78 @@
+
+.clicker_box {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.clicker {
+    height: 30vh;
+    width: 30vh;
+    border: 0px solid red;
+    background: no-repeat;
+    background-size: cover;
+    margin-top: 5vh;
+    transition: 0.3s ;
+
+
+    &:hover {
+        transform: scale(1.1);
+    }
+    &:active{
+        transform: scale(0.95);
+    }
+}
+
+.screaming {
+    font-family: 'Bloody', sans-serif;
+    color: red;
+}
+
+
+.counter__count{        
+    font-size: 50px;
+    border-bottom: 1px solid white;
+    font-family: "Tiny5", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: rgb(124, 48, 48);
+}
+
+
+
+.counter__description{
+    height: 100px;
+    width: 100px;
+    border: 1px solid white;
+    font-size: 10px;
+    color: linen;
+}
+
+
+.pero {
+    background-image: url("../../public/pero.jpg");
+    background-size: cover;
+    position: absolute;
+    top: 0;
+}
+
+.pero {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    animation-name: fly;
+    animation-duration: 3s;
+    z-index: -1;
+    animation-timing-function: linear;
+}
+
+@keyframes fly {
+    0% {
+        top: -10%;
+    }
+    100% {
+        top: 101%;
+    }
+}
