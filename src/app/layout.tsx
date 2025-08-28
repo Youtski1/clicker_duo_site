@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+import Script from "next/script";
+
+
+import { Hachi_Maru_Pop, Tiny5 } from "next/font/google";
+
+const hachiMaruPop = Hachi_Maru_Pop({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-hachi-maru-pop",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const tiny5 = Tiny5({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-tiny5",
 });
 
 export const metadata: Metadata = {
@@ -22,13 +28,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${hachiMaruPop.variable} ${tiny5.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.rufonts.ru/css/krovavy" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Tiny5&display=swap" rel="stylesheet" />
         <link rel="preload" href="/clicker_image/1/0.png" as="image" />
         <link rel="preload" href="/clicker_image/1/1.png" as="image" />
         <link rel="preload" href="/clicker_image/1/2.png" as="image" />
@@ -36,9 +38,11 @@ export default function RootLayout({
         <link rel="preload" href="/clicker_image/1/4.png" as="image" />
         <link rel="preload" href="/clicker_image/1/5.png" as="image" />
         <link rel="preload" href="/clicker_image/1/6.png" as="image" />
-        <script src="https://telegram.org/js/telegram-web-app.js"></script>
+        <Script
+          src="https://telegram.org/js/telegram-web-app.js"
+        />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         {children}
       </body>
     </html>

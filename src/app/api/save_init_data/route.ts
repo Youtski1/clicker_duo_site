@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse} from "next/server";
 import ValidateService from "@/app/services/validaty_service";
-import { init } from "next/dist/compiled/webpack/webpack";
 
 export async function POST(req: NextRequest){
     const initData = await req.json()

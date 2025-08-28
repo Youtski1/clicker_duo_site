@@ -35,7 +35,7 @@ const TopUsersPage = () => {
                         <ol start={1} className="list-users">
                         {topUsers.length > 0 ? (
                             topUsers.map((user) => (
-                               <li className="list-users__user">
+                               <li className="list-users__user" >
                                     <User 
                                     full_name={user.full_name}
                                     level={user.level}

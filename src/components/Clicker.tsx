@@ -16,7 +16,7 @@ function Clicker() {
   const [feathers, setFeathers] = useState<string[]>([]); 
   const [screaming, setScreaming] = useState("")
   const timerRefs = useRef<NodeJS.Timeout[]>([]);
-  const {user, themeParams, isReady, initData} = useTelegramContext()
+  const {user} = useTelegramContext()
 
 
   useEffect(() => {
@@ -72,7 +72,7 @@ function Clicker() {
   return (
     <>
       <div className="feathers">
-        {feathers.length !== 0 && feathers.map((peroId, index) => (
+        {feathers.length !== 0 && feathers.map((peroId) => (
           <Pero key={peroId} id={peroId} /> 
         ))}
       </div>

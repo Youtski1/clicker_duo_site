@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     if (data.telegram_id in time_last_query) {
         const actual_time = new Date();
         const time: Date = time_last_query[data.telegram_id];
-        time.setSeconds(time.getSeconds() + 7);
+        time.setSeconds(time.getSeconds() + 3);
 
         if ( time > actual_time) 
             return new NextResponse("delay damage duo", {status: 400})

@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import UserService from "@/app/services/user_service";
 import { UserTopLevel } from "@/app/types/user_top_level";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     const user_service = new UserService();
     const top_users: UserTopLevel[] | undefined = await user_service.getTopUsersLevel()
 

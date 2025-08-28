@@ -1,7 +1,7 @@
 'use client'; 
 
 import { useState, useEffect, createContext, useContext } from 'react';
-import { fakeTelegram } from '@/mocks/telegram_context_mock';
+
 
 interface User {
   id: number;
@@ -54,26 +54,30 @@ export const TelegramDataProvider: React.FC<Props> = ({ children }) => {
     initData: ""
   });
 
-  useEffect(() => {
+    useEffect(() => {
+      const checkTelegram = () => {
+          if (window.Telegram && window.Telegram.WebApp) {
+              const tg = window.Telegram.WebApp;
+              const user = tg.initDataUnsafe?.user;
+              const initData = tg.initData;
+              const themeParams = tg.themeParams;
 
-    if (window.Telegram && window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      const user = tg.initDataUnsafe?.user;
-      const initData = tg.initData;
-      const themeParams = tg.themeParams;
+              console.log('Telegram Web App Initialized (Client)');
+              console.log('User:', user);
+              console.log('Theme Params:', themeParams);
+              console.log('Init data:', initData);
 
-      console.log('Telegram Web App Initialized (Client)');
-      console.log('User:', user);
-      console.log('Theme Params:', themeParams);
-      console.log('Init data:',initData)
+              setTelegramData({ user, themeParams, isReady: true, isAvailable: true, initData: initData });
 
-      setTelegramData({ user, themeParams, isReady: true, isAvailable: true , initData: initData});
+          } else {
+              console.warn('Telegram Web Apps API not available (Client). Trying again...');
+      
+              setTimeout(checkTelegram, 500); 
+            }
+          };
 
-    } else {
-      setTelegramData(prevState => ({ ...prevState, isAvailable: false }))
-      console.warn('Telegram Web Apps API not available (Client).  Are you running this in Telegram?');
-    }
-  }, []); 
+      checkTelegram(); 
+    }, []);
 
   return (
     <TelegramDataContext.Provider value={telegramData}>

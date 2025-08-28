@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
-import ValidateService from "./app/services/validaty_service";
-
 
 
 export async function middleware(req: NextRequest) {

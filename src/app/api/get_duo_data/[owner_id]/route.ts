@@ -1,14 +1,19 @@
-import { NextRequest, NextResponse } from "next/server";
-import DuoService from "@/app/services/duo_service";
-
-export async function GET(req: NextRequest, { params }: { params: { owner_id: string } }) {
-    const { owner_id } = await params;
-    const duo_service = new DuoService();
-    const duo = await duo_service.getData(parseInt(owner_id));
-    
-    if (!duo)
-        return new NextResponse("Not found duo",{status: 404});
+import { NextRequest, NextResponse } from 'next/server';
+import DuoService from '@/app/services/duo_service';
 
 
-    return NextResponse.json({duo: duo}, {status: 200});
-};
+interface Params {
+    owner_id: string;
+}
+
+export async function GET(req: NextRequest, { params }: { params: Promise<Params> }) {
+  const {owner_id} = await params;
+  const duoService = new DuoService();
+  const duo = await duoService.getData(parseInt(owner_id));
+
+  if (!duo) {
+    return new NextResponse('Not found duo', { status: 404 });
+  }
+
+  return NextResponse.json({ duo }, { status: 200 });
+}

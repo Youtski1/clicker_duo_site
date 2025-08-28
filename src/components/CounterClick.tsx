@@ -1,13 +1,13 @@
 "use client"
 
-import { use, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDuoContext } from "@/contexts/DuoContext";
 
 
 function CounterClick(props: any) {
 
     const data = useDuoContext();
-    let [countClick, setCountClick] = useState(data?.duoData.health)
+    const [countClick, setCountClick] = useState(data?.duoData.health)
 
     useEffect(() => {
         if (data) {

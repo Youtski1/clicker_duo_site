@@ -1,9 +1,7 @@
 "use client"
 
 import { useContext, useEffect, useState, createContext, useRef } from "react";
-import { fakeTelegram } from "@/mocks/telegram_context_mock";
 import { Duo } from "@/app/types/duo";
-import { Cabin_Sketch } from "next/font/google";
 
 interface DuoData {
     id: number,
@@ -61,9 +59,13 @@ export const DuoDataProvaider: React.FC<Props> = ({ children }) => {
             return updatedDuoData
         }
 
-        const percentage = Math.round(prevDuoData.duoData.health) / (prevDuoData.full_health / 100);
+        const percentage = Math.round(prevDuoData.duoData.health / (prevDuoData.full_health / 100));
 
         if ((countClick.current == 40 || percentage == 0)) {
+            if (percentage == 0) {
+                updatedDuoData = {...prevDuoData, duoData: {...prevDuoData.duoData, health: 0}}
+            }
+            
             countClick.current = 0;
             setUpdateDuo(true)
         }
@@ -123,24 +125,39 @@ export const DuoDataProvaider: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
         const getDuoData = async () => {
-            const owner_id = window.Telegram?.WebApp.initDataUnsafe.user?.id
+            const owner_id = window.Telegram?.WebApp.initDataUnsafe.user?.id;
 
-            const res = await fetch(`/api/get_duo_data/${owner_id}`)
-            
-            if (res.status == 200) {
+            if (!owner_id) {
+                console.warn("owner_id is undefined. Telegram WebApp might not be initialized.");
+                return;
+            }
+
+            const res = await fetch(`/api/get_duo_data/${owner_id}`); 
+
+            if (res.status === 200) {
                 const data = await res.json();
                 const duo: Duo = data.duo;
                 const full_health = 850 + 350 * duo.level;
-                setDuoData({duoData: duo, setHealth: setHealth, full_health: full_health, isReady: true});
-                console.log("Duo data received" + duo.level)
+                setDuoData({ duoData: duo, setHealth: setHealth, full_health: full_health, isReady: true });
+                console.log("Duo data received" + duo.level);
+            } else {
+                console.log("Not duo data. Status code:", res.status); 
             }
-            else
-                console.log("Not duo data");
-        }
+        };
 
-        getDuoData();
-    
-    }, [])
+        const checkTelegramAndFetch = () => {
+            if (window.Telegram && window.Telegram.WebApp) {
+                console.log("Telegram WebApp is available. Fetching Duo data...");
+                getDuoData();
+            } else {
+                console.warn("Telegram WebApp not available. Trying again...");
+                setTimeout(checkTelegramAndFetch, 500); 
+            }
+        };
+
+        checkTelegramAndFetch(); 
+
+    }, []);
     
     if (duoData.duoData && duoData.full_health && duoData.setHealth){
         data = {
