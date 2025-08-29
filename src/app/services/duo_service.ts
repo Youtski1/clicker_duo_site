@@ -1,6 +1,6 @@
-import { Duo } from "../types/duo"
-import logger from "@/logger"
-import BaseService from "./service"
+import { Duo } from "../types/duo";
+import logger from "@/logger";
+import BaseService from "./service";
 
 
 
@@ -72,8 +72,8 @@ class DuoService extends BaseService {
                 }),
                 headers: {...this.headers}
             })
-            logger.info(`Critical damage duo status: ${res.status}`)
-            return 
+            logger.info(`Critical damage duo status: ${res.status}`);
+            return;
             
         }
 
@@ -88,9 +88,9 @@ class DuoService extends BaseService {
                 headers: {...this.headers}
             })
             
-            logger.info(`Set stage duo status: ${res.status}`)
+            logger.info(`Set stage duo status: ${res.status}`);
         }
     }
 }
 
-export default DuoService
+export default DuoService;

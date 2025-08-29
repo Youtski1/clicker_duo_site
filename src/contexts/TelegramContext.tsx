@@ -55,6 +55,7 @@ export const TelegramDataProvider: React.FC<Props> = ({ children }) => {
   });
 
     useEffect(() => {
+
       const checkTelegram = () => {
           if (window.Telegram && window.Telegram.WebApp) {
               const tg = window.Telegram.WebApp;

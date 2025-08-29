@@ -1,4 +1,3 @@
-
 import BaseService from "./service"
 
 class ValidateService extends BaseService {

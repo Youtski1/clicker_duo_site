@@ -12,7 +12,7 @@ interface Telegram {
           is_premium?: boolean;
           allows_write_to_pm?: boolean;
         };
-        // Добавьте другие поля, которые вам нужны из initDataUnsafe
+
       };
       themeParams: {
         bg_color?: string;
@@ -28,7 +28,7 @@ interface Telegram {
         onClick: (callback: () => void) => void;
         show: () => void;
         hide: () => void;
-        // Добавьте другие методы и свойства MainButton
+
       };
       BackButton: {
           show: () => void;
@@ -59,7 +59,7 @@ interface Telegram {
   
       sendData: (data: string) => void;
   
-      // Добавьте другие методы и свойства WebApp
+
     };
   }
   
